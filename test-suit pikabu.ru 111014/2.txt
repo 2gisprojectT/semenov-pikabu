@@ -26,7 +26,11 @@
 	<td>css=input.search_btn</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>assertTextPresent</td>
+	<td>Слишком короткая фраза для поиска.</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>
