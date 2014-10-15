@@ -16,8 +16,7 @@ class SeleniumTest(TestCase):
         email.send_keys("123@123")
         driver.find_element_by_id("rm_pass").click()
         element = driver.find_element_by_id("rm_email_err")
-        assert(element.text, "Неверный email", "Ошибка")
-        print(element.text)
+        assert "Неверный email", element.text
         driver.close()
 
 if __name__ == '__main__':
