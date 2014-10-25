@@ -1,11 +1,17 @@
 from online.helpers.base_component import BaseComponent
 
 class SearchBar(BaseComponent):
+
     selectors = {
-        'self': '.online_searchBar',
-        'input': '.searchBar_form.searchBar_textfield._refbook .suggest_input',
-        'submit': '.searchBar_submit._refbook'
+        'self': '.online__searchBar',
+        'input': '.searchBar__form .searchBar__textfield._refbook .suggest__input',
+        'submit': '.searchBar__submit._refbook'
     }
+
     def search(self, query):
         self.driver.find_element_by_css_selector(self.selectors['input']).send_keys(query)
-        self.driver.find_element_by_css_selector(self.selectors['submit']).submit
+        self.driver.find_element_by_css_selector(self.selectors['submit']).submit()
+
+    @property
+    def request(self):
+        return self.driver.find_element_by_css_selector(self.selectors['input']).get_attribute("value")
