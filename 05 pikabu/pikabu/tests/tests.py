@@ -24,8 +24,8 @@ class SeleniumTest(TestCase):
                          self.page.search_bar.count_results,
                          u'Результатов быть не должно')
         self.assertEqual(u'Слишком короткая фраза для поиска. Фраза должна содержать минимум 3 символа.',
-                         self.page.search_bar.search_noresult,
-                         u'Строка поиска не совпадает с запросом')
+                         self.page.search_bar.search_too_short_query,
+                         u'Нет сообщения о слишком коротком запросе')
 
     def test_long_word(self):
         self.page.search_bar.search(u'человеконенавистник')
@@ -36,8 +36,8 @@ class SeleniumTest(TestCase):
                            0,
                            u'Количество найденных должно быть больше нуля')
         self.assertEqual("False",
-                         self.page.search_bar.search_noresult,
-                         u'Лжет, что нет результатов')
+                         self.page.search_bar.search_too_short_query,
+                         u'Лжет, что слишком короткая строка запроса')
 
     def test_two_short_word(self):
         self.page.search_bar.search(u'щи щи')
@@ -46,6 +46,31 @@ class SeleniumTest(TestCase):
                          u'Строка поиска не совпадает с запросом')
         self.assertEqual(0, self.page.search_bar.count_results,
                          u'Результатов быть не должно')
+        self.assertEqual("False",
+                         self.page.search_bar.search_too_short_query,
+                         u'Лжет, что слишком короткая строка запроса')
+
+    def test_nonexistent_word(self):
+        self.page.search_bar.search(u'авсмм')
+        self.assertEqual(u'авсмм',
+                         self.page.search_bar.search_string,
+                         u'Строка поиска не совпадает с запросом')
+        self.assertEqual(0, self.page.search_bar.count_results,
+                         u'Результатов быть не должно')
+        self.assertEqual("False",
+                         self.page.search_bar.search_too_short_query,
+                         u'Лжет, что слишком короткая строка запроса')
+
+    def test_backslash(self):
+        self.page.search_bar.search(u'\\')
+        self.assertEqual(u'\\',
+                         self.page.search_bar.search_string,
+                         u'Строка поиска не совпадает с запросом')
+        self.assertEqual(0, self.page.search_bar.count_results,
+                         u'Результатов быть не должно')
+        self.assertEqual(u'Слишком короткая фраза для поиска. Фраза должна содержать минимум 3 символа.',
+                         self.page.search_bar.search_too_short_query,
+                         u'Нет сообщения о слишком коротком запросе')
 
 if __name__ == '__main__':
     unittest.main()

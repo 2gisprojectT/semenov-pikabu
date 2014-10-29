@@ -28,7 +28,7 @@ class SearchBar(BaseComponent):
         return self.driver.find_element_by_css_selector(self.selectors['search_string']).get_attribute("value")
 
     @property
-    def search_noresult(self):
+    def search_too_short_query(self):
         try:
             return self.driver.find_element_by_css_selector(self.selectors['no_result']).text
         except Exception:
