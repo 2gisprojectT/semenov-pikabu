@@ -5,11 +5,13 @@ from selenium import webdriver
 from pikabu.helpers.page import Page
 
 class SeleniumTest(TestCase):
+
     @classmethod
     def setUpClass(cls):
         cls.driver = webdriver.Firefox()
         cls.driver.implicitly_wait(5)
         cls.page = Page(cls.driver)
+        # cls._backslash = False
 
     @classmethod
     def tearDownClass(cls):
@@ -71,6 +73,35 @@ class SeleniumTest(TestCase):
         self.assertEqual(u'Слишком короткая фраза для поиска. Фраза должна содержать минимум 3 символа.',
                          self.page.search_bar.search_too_short_query,
                          u'Нет сообщения о слишком коротком запросе')
+
+    # def backslash(self):
+    #     self.page.search_bar.search(u'\\')
+    #     self.backslash_search_string = self.page.search_bar.search_string
+    #     self.backslash_count_results = self.page.search_bar.count_results
+    #     self.backslash_search_too_short_query = self.page.search_bar.search_too_short_query
+    #
+    # def test_backslash_search_string(self):
+    #     if self._backslash == False:
+    #         self.backslash()
+    #         self._backslash = True
+    #     self.assertEqual(u'\\',
+    #                      self.backslash_search_string,
+    #                      u'Строка поиска не совпадает с запросом')
+    #
+    # def test_backslash_count_results(self):
+    #     if self._backslash == False:
+    #         self.backslash()
+    #         self._backslash = True
+    #     self.assertEqual(0, self.backslash_count_results,
+    #                      u'Результатов быть не должно')
+    #
+    # def test_backslash_too_short_query(self):
+    #     if self._backslash == False:
+    #         self.backslash()
+    #         self._backslash = True
+    #     self.assertEqual(u'Слишком короткая фраза для поиска. Фраза должна содержать минимум 3 символа.',
+    #                      self.backslash_search_too_short_query,
+    #                      u'Нет сообщения о слишком коротком запросе')
 
 if __name__ == '__main__':
     unittest.main()
